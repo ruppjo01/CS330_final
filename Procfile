@@ -1,1 +1,1 @@
-web: gunicorn helloheroku:app
+web: directory:app
