@@ -1,1 +1,1 @@
-web: directory:app
+web: gunicorn directory:app
