@@ -1,0 +1,10 @@
+body { 
+    background-color: blue;
+}
+h1 { 
+    color: white;
+}
+
+.col-sm-4 {
+	color: gray;
+}
