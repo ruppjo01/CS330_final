@@ -8,3 +8,7 @@ h1 {
 .col-sm-4 {
 	color: gray;
 }
+
+li {
+    list-style-type: none
+}

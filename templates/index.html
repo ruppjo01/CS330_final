@@ -5,8 +5,32 @@
 <body>
 	<div class="container">
 	  <div class="jumbotron">
-	    <h1>This is my Jumbotron</h1> 
-	    <p>Lorem ipsum dolor sit amet, nunc posuere, faucibus rutrum eleifend turpis bibendum, duis pede lectus laoreet duis, etiam nunc aenean orci orci, potenti ipsum sed eleifend. Ante est mattis cursus ac, nec urna et, ut felis tempus nunc lectus, phasellus leo vehicula tempus. Amet at placerat wisi interdum est. Scelerisque porta, vel egestas lorem elit, nec ac felis sit pede amet pellentesque. Enim imperdiet arcu praesent nisl amet eu, curabitur fermentum id rutrum scelerisque, ac neque eu et cras tempus, quisque sociosqu non urna amet ornare sit, vitae aenean etiam ac eu. Montes bibendum quam maecenas ultricies, ligula ipsum integer orci parturient, tellus facilisis eget pulvinar risus vestibulum, ligula risus.</p> 
+	    <h1>CS330 Directory</h1>
+            {% for message in form.options.errors %}
+                <div>{{ message }} </div>
+            {% endfor %}
+            {% for message in form.field.errors %}
+                <div>{{ message }}</div>
+            {% endfor %}
+
+            <form action = '/' method = POST>
+                <fieldset>
+                    {{ form.hidden_tag() }}
+                    
+                    <div>
+                        {{ form.options.label }}<br>
+                        {{ form.options }}
+                        <br>
+
+                        {{ form.field }} 
+                        <br>
+                        {{ form.submit }}
+                    </div>
+                </fieldset>
+            </form>
+
+                        
+
 	  </div>
 	  
 	</div>
