@@ -24,6 +24,38 @@ class names(db.Model):
     first = db.Column(db.String)
     last = db.Column(db.String)
 
+class states(db.Model):
+    __tablename__ = 'states'
+    state_id = db.Column(db.Integer, primary_key=True)
+    state_name = db.Column(db.String)
+    
+class hometown(db.Model):
+    __tablename__ = 'hometown'
+    name_id = db.Column(db.Integer, primary_key=True)
+    town_name = db.Column(db.String)
+    state_id = db.Column(db.Integer)
+
+class studies(db.Model):
+    __tablename__ = 'studies'
+    name_id = db.Column(db.Integer, primary_key=True)
+    major = db.Column(db.String)
+    minor = db.Column(db.String)
+    major2 = db.Column(db.String)
+
+class classes(db.Model):
+    __tablename__ = 'classes'
+    name_id = db.Column(db.Integer, primary_key=True)
+    standing = db.Column(db.String)
+    
+class contact(db.Model):
+    __tablename__ = 'contact'
+    name_id = db.Column(db.Integer, primary_key=True)
+    building = db.Column(db.String)
+    room = db.Column(db.Integer)
+    spo = db.Column(db.Integer)
+
+
+
 class StudentSearch(Form):
     options = RadioField('Search By',[validators.DataRequired()],choices=[('Name','Name'),('Major','Major'),('Minor','Minor'),('Res','Luther Residence'),('Hometown','Hometown'),('State','Home State')])
     field = TextField([validators.DataRequired()])
@@ -43,13 +75,21 @@ def directory():
                 name = form.field.data.split()
                 first_name = name[0]
                 last_name = name[1]
-                info = db.session.query(names).filter_by(first = first_name).filter_by(last = last_name)
-                results = []
-                for i in info:
-                    results.append(i)
+                info = db.session.query(names).join(contact)#filter_by(first = first_name).filter_by(last = last_name)
+                # results = []
+                # for i.first in info:
+                #     results.append(i)
+            elif form.options.data == 'Res':
+                housing = form.field.data.split()
+                building = housing[0]
+                room = housing[1]
+                info = db.session.query(contact).filter_by(building = building).filter_by(room = room)
+                # results = []  
+                # for i.first in info:
+                #     results.append(i)
 
 
-            return render_template('results.html', info = results)
+            return render_template('results.html', info = info)
     elif request.method == 'GET':
         return render_template('index.html', form = form)
 
