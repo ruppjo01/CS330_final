@@ -6,6 +6,8 @@
 	<div class="container">
 	  <div class="jumbotron">
 	    <h1>CS330 Directory</h1>
+            <form action = '/' method = POST>
+
             {% for message in form.options.errors %}
                 <div>{{ message }} </div>
             {% endfor %}
@@ -13,7 +15,6 @@
                 <div>{{ message }}</div>
             {% endfor %}
 
-            <form action = '/' method = POST>
                 <fieldset>
                     {{ form.hidden_tag() }}
                     
