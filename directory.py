@@ -26,30 +26,31 @@ class names(db.Model):
 
 class states(db.Model):
     __tablename__ = 'states'
-    state_id = db.Column(db.Integer, primary_key=True)
+    state_id = db.Column(db.Integer, db.ForeignKey('hometown.state_id'), primary_key=True)
     state_name = db.Column(db.String)
     
 class hometown(db.Model):
     __tablename__ = 'hometown'
-    name_id = db.Column(db.Integer, primary_key=True)
+    name_id = db.Column(db.Integer, db.ForeignKey('names.name_id'), primary_key=True)
     town_name = db.Column(db.String)
     state_id = db.Column(db.Integer)
 
 class studies(db.Model):
     __tablename__ = 'studies'
-    name_id = db.Column(db.Integer, primary_key=True)
+    db.ForeignKey('person.id')
+    name_id = db.Column(db.Integer, db.ForeignKey('names.name_id'), primary_key=True)
     major = db.Column(db.String)
     minor = db.Column(db.String)
     major2 = db.Column(db.String)
 
 class classes(db.Model):
     __tablename__ = 'classes'
-    name_id = db.Column(db.Integer, primary_key=True)
+    name_id = db.Column(db.Integer, db.ForeignKey('names.name_id'), primary_key=True)
     standing = db.Column(db.String)
     
 class contact(db.Model):
     __tablename__ = 'contact'
-    name_id = db.Column(db.Integer, primary_key=True)
+    name_id = db.Column(db.Integer, db.ForeignKey('names.name_id'), primary_key=True,)
     building = db.Column(db.String)
     room = db.Column(db.Integer)
     spo = db.Column(db.Integer)
@@ -74,22 +75,48 @@ def directory():
             if form.options.data == 'Name':
                 name = form.field.data.split()
                 first_name = name[0]
-                last_name = name[1]
-                info = db.session.query(names).join(contact)#filter_by(first = first_name).filter_by(last = last_name)
+                if len(name) == 2: 
+                    last_name = name[1]
+                    info = db.session.query(names).filter_by(first = first_name).filter_by(last = last_name)
+                else: 
+                    info = db.session.query(names).filter((names.first == first_name) | (names.last == first_name))
                 # results = []
                 # for i.first in info:
                 #     results.append(i)
             elif form.options.data == 'Res':
                 housing = form.field.data.split()
                 building = housing[0]
-                room = housing[1]
-                info = db.session.query(contact).filter_by(building = building).filter_by(room = room)
-                # results = []  
-                # for i.first in info:
-                #     results.append(i)
+                if len(housing) == 2: 
+                    room = housing[1]
+                    results = db.session.query(contact).filter_by(building = building).filter_by(room = room)
+                else:
+                    results = db.session.query(contact).filter_by(building = building)
 
+                info = results.join(names).add_columns(names.first, names.last, contact.building, contact.room)
 
+            elif form.options.data == 'Major':
+                major = form.field.data 
+                results = db.session.query(studies).filter((studies.major == major) | (studies.major2 == major))
+                info = results.join(names).add_columns(names.first, names.last, studies.major, studies.major2)
+
+            elif form.options.data == 'Minor':
+                minor = form.field.data 
+                results = db.session.query(studies).filter_by(minor = minor)
+                info = results.join(names).add_columns(names.first, names.last, studies.minor)
+
+            elif form.options.data == 'Hometown':
+                town = form.field.data
+                results = db.session.query(hometown).filter_by(town_name = town)
+                info = results.join(names).join(states).add_columns(names.first, names.last, hometown.town_name, states.state_name)
+
+            elif form.options.data == 'State': 
+                state = form.field.data
+                results = db.session.query(states).filter_by(state_name = state)
+                info = results.join(hometown).join(names).add_columns(hometown.town_name, names.first)
+
+            print("THIS IS THE INFO", info)
             return render_template('results.html', info = info)
+
     elif request.method == 'GET':
         return render_template('index.html', form = form)
 

@@ -1,9 +1,35 @@
 {% extends "index.html" %}
 
 {% block content %} 
+{% if info.count() != 0 %}
+  <div class='container'>
+  <table class = 'table table-striped'>
 
-{% for i in info %}
-    <div><h1>{{ i.building, i.room }}</h1></div>
-{% endfor %}
+  {% for i in info %}
+    <tr>
+      <td>{{i.first}}</td>
+      <td>{{i.last}}</td>
+      <td>{{i.town_name}}</td>
+      <td>{{i.state_name}}</td>
+      <td>{{i.major}}</td>
+      <td>{{i.major2}}</td>
+      <td>{{i.minor}}</td>
+    </tr>
+  {% endfor %}
+
+  </table>
+  </div>
+
+{% else %}
+  <div class='container'>
+    <div class='jumbotron'>
+      <h2>Sorry, no results, please refine your search.</h2>
+    </div>
+  </div>
+{% endif %}
+
+<div>
+  <button class="active btn btn-success btn-lg center-block"><a href="/">Return to search</a></button>
+</div>
 
 {% endblock%}
