@@ -70,17 +70,19 @@ def directory():
             flash('At least one parameter must be given')
             return render_template('index.html', form = form)
         else:
+            options = form.options.data
             if form.options.data == 'Name':
                 name = form.field.data.split()
                 first_name = name[0]
                 if len(name) == 2:
                     last_name = name[1]
-                    info = db.session.query(names).filter_by(first = first_name).filter_by(last = last_name)
+                    results = db.session.query(names).filter_by(first = first_name).filter_by(last = last_name)
                 else:
-                    info = db.session.query(names).filter((names.first == first_name) | (names.last == first_name))
-                # results = []
-                # for i.first in info:
-                #     results.append(i)
+                    results = db.session.query(names).filter((names.first == first_name) | (names.last == first_name))
+                info = results.join(hometown).add_columns(names.first, names.last, hometown.town_name).join(classes).join(states)\
+                    .add_columns(names.name_id, hometown.town_name, hometown.state_id, classes.standing, states.state_id, states.state_name)
+               
+                
             elif form.options.data == 'Res':
                 housing = form.field.data.split()
                 building = housing[0]
@@ -113,7 +115,7 @@ def directory():
                 info = results.join(hometown).join(names).add_columns(hometown.town_name, names.first)
 
             print("THIS IS THE INFO", info)
-            return render_template('results.html', info = info)
+            return render_template('results.html', info = info, option = options)
 
     elif request.method == 'GET':
         return render_template('index.html', form = form)

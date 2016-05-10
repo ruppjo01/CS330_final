@@ -5,7 +5,44 @@
   <div class='container'>
   <table class = 'table table-striped'>
 
-  {% for i in info %}
+  {% if option == 'Res' %}
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Building</th>
+      <th>Room Number</th>
+    </tr>  
+    {% for i in info %}
+    <tr>
+      <td>{{i.first}}</td>
+      <td>{{i.last}}</td>
+      <td>{{i.building}}</td>
+      <td>{{i.room}}</td>
+    </tr>
+    {% endfor %}
+  {% endif %}
+
+  {% if option == 'Name' %}
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Class</th>
+      <th>Hometown</th>
+      <th>State/Country</th>
+    </tr>  
+    {% for i in info %}
+    <tr>
+      <td>{{i.first}}</td>
+      <td>{{i.last}}</td>
+      <td>{{i.standing}}</td>
+      <td>{{i.town_name}}</td>
+      <td>{{i.state_name}}</td>
+    </tr>
+    {% endfor %}
+  {% endif %}
+
+
+  <!-- {% for i in info %}
     <tr>
       <td>{{i.first}}</td>
       <td>{{i.last}}</td>
@@ -14,8 +51,10 @@
       <td>{{i.major}}</td>
       <td>{{i.major2}}</td>
       <td>{{i.minor}}</td>
+      <td>{{i.building}}</td>
+      <td>{{i.room}}</td>
     </tr>
-  {% endfor %}
+  {% endfor %} -->
 
   </table>
   </div>
