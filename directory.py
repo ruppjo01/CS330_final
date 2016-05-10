@@ -3,7 +3,7 @@ from flask_bootstrap import Bootstrap
 from wtforms import Form, BooleanField, TextField, validators, SubmitField, RadioField, SelectField
 from flask_wtf import Form
 from flask_sqlalchemy import SQLAlchemy
-
+from apiclient.discovery import build
 from wtforms_sqlalchemy.orm import model_form
 
 app = Flask(__name__)
@@ -12,6 +12,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///students.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 app.secret_key = 'development key'
+
+api_key = 'AIzaSyAFOKnxGDUd36QSDwVQVrToSFfMGE0wQ60'
 
 
 Bootstrap(app)
@@ -80,9 +82,9 @@ def directory():
                     info = db.session.query(names).filter_by(first = first_name).filter_by(last = last_name)
                 else: 
                     info = db.session.query(names).filter((names.first == first_name) | (names.last == first_name))
-                # results = []
-                # for i.first in info:
-                #     results.append(i)
+
+                info = info.join(hometown).add_columns(names.first, names.last, hometown.town_name)
+
             elif form.options.data == 'Res':
                 housing = form.field.data.split()
                 building = housing[0]
@@ -112,7 +114,7 @@ def directory():
             elif form.options.data == 'State': 
                 state = form.field.data
                 results = db.session.query(states).filter_by(state_name = state)
-                info = results.join(hometown).join(names).add_columns(hometown.town_name, names.first)
+                info = results.join(hometown).join(names).add_columns(hometown.town_name, names.first, states.state_name)
 
             print("THIS IS THE INFO", info)
             return render_template('results.html', info = info)
