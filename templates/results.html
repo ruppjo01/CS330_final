@@ -5,19 +5,121 @@
   <div class='container'>
   <table class = 'table table-striped'>
 
-  {% for i in info %}
+  {% if option == 'Res' %}
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Building</th>
+      <th>Room Number</th>
+    </tr>  
+    {% for i in info %}
+    <tr>
+      <td>{{i.first}}</td>
+      <td>{{i.last}}</td>
+      <td>{{i.building}}</td>
+      <td>{{i.room}}</td>
+    </tr>
+    {% endfor %}
+  {% endif %}
+
+  {% if option == 'Name' %}
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Class</th>
+      <th>Luther Residence</th>
+      <th>Major(s)</th>
+      <th>Minor</th>
+      <th>Hometown</th>
+      <th>State/Country</th>
+    </tr>  
+    {% for i in info %}
+    <tr>
+      <td>{{i.first}}</td>
+      <td>{{i.last}}</td>
+      <td>{{i.standing}}</td>
+      <td>{{i.building}} {{i.room}}</td>
+      {% if i.major2 != None %}
+        <td>{{i.major}},{{i.major2}}</td>
+      {% else %}
+        <td>{{i.major}}</td>
+      {% endif %}
+      <td>{{i.minor}}</td>
+      <td>{{i.town_name}}</td>
+      <td>{{i.state_name}}</td>
+    </tr>
+    {% endfor %}
+  {% endif %}
+
+  {% if option == 'Major' %}
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Class</th>
+      <th>Major</th>
+      <th>Second Major</th>
+    </tr>  
+    {% for i in info %}
+    <tr>
+      <td>{{i.first}}</td>
+      <td>{{i.last}}</td>
+      <td>{{i.standing}}</td>
+      <td>{{i.major}}</td>
+      <td>{{i.major2}}</td>
+    </tr>
+    {% endfor %}
+  {% endif %}
+
+  {% if option == 'Minor' %}
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Class</th>
+      <th>Minor</th>
+      <th>Major(s)</th>
+    </tr>  
+    {% for i in info %}
+    <tr>
+      <td>{{i.first}}</td>
+      <td>{{i.last}}</td>
+      <td>{{i.standing}}</td>
+      <td>{{i.minor}}</td>
+      <td>{{i.major}},{{i.major2}}</td>
+    </tr>
+    {% endfor %}
+  {% endif %}
+
+  {% if option == 'Hometown' %}
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Hometown</th>
+      <th>State/Country</th>
+    </tr>  
+    {% for i in info %}
     <tr>
       <td>{{i.first}}</td>
       <td>{{i.last}}</td>
       <td>{{i.town_name}}</td>
       <td>{{i.state_name}}</td>
-      <td>{{i.major}}</td>
-      <td>{{i.major2}}</td>
-      <td>{{i.minor}}</td>
-      <td>{{i.building}}</td>
-      <td>{{i.room }}</td>
     </tr>
-  {% endfor %}
+    {% endfor %}
+  {% endif %}
+
+  {% if option == 'State' %}
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Home City</th>
+    </tr>  
+    {% for i in info %}
+    <tr>
+      <td>{{i.first}}</td>
+      <td>{{i.last}}</td>
+      <td>{{i.town_name}}</td>
+    </tr>
+    {% endfor %}
+  {% endif %}
 
   </table>
   </div>
@@ -30,8 +132,9 @@
   </div>
 {% endif %}
 
-<div>
-  <button class="active btn btn-success btn-lg center-block"><a href="/">Return to search</a></button>
+<div class='button'>
+  <a href='/' class="btn btn-primary btn-lg active" role="button">Return to Search</a>
+ <!--  <button class="active btn btn-success btn-lg center-block" href="/">Return to search</button> -->
 </div>
 
 {% endblock%}
