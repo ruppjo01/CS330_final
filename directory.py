@@ -59,8 +59,8 @@ class contact(db.Model):
 
 
 class StudentSearch(Form):
-    options = RadioField('Search By',[validators.DataRequired()],choices=[('Name','Name'),('Major','Major'),('Minor','Minor'),('Res','Luther Residence'),('Hometown','Hometown'),('State','Home State')])
-    field = TextField([validators.DataRequired()])
+    options = RadioField('Search By',[validators.required()],choices=[('Name','Name'),('Major','Major'),('Minor','Minor'),('Res','Luther Residence'),('Hometown','Hometown'),('State','Home State')])
+    field = TextField("Enter a value", [validators.required()])
 
     submit = SubmitField('Search')
 

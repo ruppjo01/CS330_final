@@ -39,7 +39,7 @@ function populatemarkers(themap) {
     if (obj.readyState == 4 && obj.status==200){
       thejson = JSON.parse(obj.responseText)
       for (i in thejson.json_obj) {
-        console.log(thejson.json_obj[i]); 
+        // console.log(thejson.json_obj[i]); 
         var lat = thejson.json_obj[i]['lat'];
         var lon = thejson.json_obj[i]['lon'];
         var name = thejson.json_obj[i]['first'] + " " + thejson.json_obj[i]['last']

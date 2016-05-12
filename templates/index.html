@@ -11,9 +11,7 @@
             {% for message in form.options.errors %}
                 <div>{{ message }} </div>
             {% endfor %}
-            {% for message in form.field.errors %}
-                <div>{{ message }}</div>
-            {% endfor %}
+
 
                 <fieldset>
                     {{ form.hidden_tag() }}
@@ -22,7 +20,9 @@
                         {{ form.options.label }}<br>
                         {{ form.options }}
                         <br>
-
+                        {% for message in form.field.errors %}
+                        <div color='red'>{{ message }}</div>
+                        {% endfor %}
                         {{ form.field }} 
                         <br>
                         {{ form.submit }}
