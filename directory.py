@@ -79,8 +79,8 @@ def directory():
                     results = db.session.query(names).filter_by(first = first_name).filter_by(last = last_name)
                 else:
                     results = db.session.query(names).filter((names.first == first_name) | (names.last == first_name))
-                info = results.join(hometown).add_columns(names.first, names.last, hometown.town_name).join(classes).join(states)\
-                    .add_columns(names.name_id, hometown.town_name, hometown.state_id, classes.standing, states.state_id, states.state_name)
+                info = results.join(hometown).add_columns(names.first, names.last, hometown.town_name).join(classes).join(states).join(contact).join(studies)\
+                    .add_columns(names.name_id, hometown.town_name, hometown.state_id, classes.standing, states.state_id, states.state_name, contact.building, contact.room, studies.major, studies.minor, studies.major2)
                
                 
             elif form.options.data == 'Res':
@@ -97,7 +97,7 @@ def directory():
             elif form.options.data == 'Major':
                 major = form.field.data
                 results = db.session.query(studies).filter((studies.major == major) | (studies.major2 == major))
-                info = results.join(names).add_columns(names.first, names.last, studies.major, studies.major2)
+                info = results.join(names).join(classes).add_columns(classes.standing, names.first, names.last, studies.major, studies.major2)
 
             elif form.options.data == 'Minor':
                 minor = form.field.data
@@ -107,12 +107,12 @@ def directory():
             elif form.options.data == 'Hometown':
                 town = form.field.data
                 results = db.session.query(hometown).filter_by(town_name = town)
-                info = results.join(names).join(states).add_columns(names.first, names.last, hometown.town_name, states.state_name)
+                info = results.join(names).join(states).join(classes).add_columns(classes.standing, names.first, names.last, hometown.town_name, states.state_name)
 
             elif form.options.data == 'State':
                 state = form.field.data
                 results = db.session.query(states).filter_by(state_name = state)
-                info = results.join(hometown).join(names).add_columns(hometown.town_name, names.first)
+                info = results.join(hometown).join(names).add_columns(names.first, names.last, hometown.town_name, states.state_name)
 
             print("THIS IS THE INFO", info)
             return render_template('results.html', info = info, option = options)
