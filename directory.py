@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, jsonify
 from flask_bootstrap import Bootstrap
 from wtforms import Form, BooleanField, TextField, validators, SubmitField, RadioField, SelectField
 from flask_wtf import Form
 from flask_sqlalchemy import SQLAlchemy
 from apiclient.discovery import build
 from wtforms_sqlalchemy.orm import model_form
+
 
 app = Flask(__name__)
 app.debug = True
@@ -13,7 +14,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 app.secret_key = 'development key'
 
-api_key = 'AIzaSyAFOKnxGDUd36QSDwVQVrToSFfMGE0wQ60'
 
 
 Bootstrap(app)
@@ -64,6 +64,15 @@ class StudentSearch(Form):
     field = TextField([validators.DataRequired()])
 
     submit = SubmitField('Search')
+
+class hometown2(db.Model):
+  __tablename__ = 'hometown2'
+  name_id = db.Column(db.Integer, db.ForeignKey('names.name_id'), primary_key=True)
+  town_name = db.Column(db.String)
+  state_id = db.Column(db.Integer)
+  latitude = db.Column(db.Float)
+  longitude = db.Column(db.Float)
+
 
 @app.route('/', methods=['GET','POST'])
 def directory():
@@ -122,11 +131,25 @@ def directory():
     elif request.method == 'GET':
         return render_template('index.html', form = form)
 
-
-
 @app.route('/student_map')
 def map():
     return render_template('map.html')
+
+@app.route('/markers')
+def mapinit():
+    data = db.session.query(hometown2).join(names).add_columns(names.first, names.last, hometown2.latitude, hometown2.longitude)
+    json_list = []
+
+    for row in data:
+        first = row.first
+        last = row.last
+        lat = row.latitude
+        lon = row.longitude
+        json_list.append(dict(first = first, last = last, lat= lat, lon = lon))
+    
+    #print(json_list)
+
+    return jsonify(json_obj=json_list)
 
 @app.route('/pictures')
 def pictures():
