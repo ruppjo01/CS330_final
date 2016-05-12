@@ -17,12 +17,18 @@ function initialize() {
 }; 
 google.maps.event.addDomListener(window, 'load', initialize);
 
-function placeMarker (lat, lon, map) {
-var position = new google.maps.LatLng(lat,lon); 
-var marker = new google.maps.Marker({
-  position: position,
-  map: map
-});
+function placeMarker (lat, lon, name, map) {
+  var infowindow = new google.maps.InfoWindow({
+    content: name
+  });
+  var position = new google.maps.LatLng(lat,lon); 
+  var marker = new google.maps.Marker({
+    position: position,
+    map: map
+  });
+  marker.addListener('click', function() {
+  infowindow.open(map, marker);
+  });
 };
 
 function populatemarkers(themap) {
@@ -36,8 +42,9 @@ function populatemarkers(themap) {
         console.log(thejson.json_obj[i]); 
         var lat = thejson.json_obj[i]['lat'];
         var lon = thejson.json_obj[i]['lon'];
+        var name = thejson.json_obj[i]['first'] + " " + thejson.json_obj[i]['last']
         //console.log(thejson.json_obj[i]['lat']); 
-        placeMarker(lat, lon, amap); 
+        placeMarker(lat, lon, name, amap); 
       }
     }
   }; 
