@@ -18,5 +18,13 @@ table {
 }
 
 .button  {
-	text-align: center
+	text-align: center;
+}
+
+.fieldset {
+	text-align: center;
+}
+
+#title {
+	text-align: center;
 }
