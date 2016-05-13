@@ -37,7 +37,7 @@ h6 {
     color: #f8f8f8;
     background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(../static/img/intro-bg.jpg) no-repeat center center;
     background-size: cover;
-    opacity: 30;
+    
 }
 
 .intro-message {
@@ -72,11 +72,7 @@ h6 {
         font-size: 3em;
     }
 
-    ul.intro-social-buttons > li {
-        display: block;
-        margin-bottom: 20px;
-        padding: 0;
-    }
+    
 
     ul.intro-social-buttons > li:last-child {
         margin-bottom: 0;

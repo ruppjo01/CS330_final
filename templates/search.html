@@ -2,50 +2,93 @@
 
 {% block content %}
 
-<body>
-	<div class="container">
-	  <div class="jumbotron">
-	    <h1 id='title'>CS330 Directory</h1>
-            <form action = '/' method = POST>
+<body class="search" id="searchpage">
+    <div>
+    	<div class="container">
+    	  <div class="jumbotron">
+    	    <h1 id='title'>CS330 Directory</h1>
+                <form action = '/search' method = POST>
 
-            {% for message in form.options.errors %}
-                <div>{{ message }} </div>
-            {% endfor %}
+                {% for message in form.options.errors %}
+                    <div>{{ message }} </div>
+                {% endfor %}
 
 
-                <fieldset class='fieldset'>
-                    {{ form.hidden_tag() }}
-                    
-                    <div>
-                        <h2>{{ form.options.label }}</h2>
-                        <div class='row'>
-                            {% for form in form.options %}
-                                <div class='col-sm-2'>{{form.label}} {{form}}</div>
-                            {% endfor %}
-
-                        <!-- {{ form.options }} -->
-                        <br>
-                        <br>
-                        {% for message in form.field.errors %}
-                        <div color='red'>{{ message }}</div>
-                        {% endfor %}
-                        <div id='searchbox'> 
-                            <br>
-                            {{ form.field }} 
-                            {{ form.submit }}
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-
+                    <fieldset class='fieldset'>
+                        {{ form.hidden_tag() }}
                         
+                        <div>
+                            <h2>{{ form.options.label }}</h2>
+                            <div class='row'>
+                                {% for form in form.options %}
+                                    <div class='col-sm-2'>{{form.label}} {{form}}</div>
+                                {% endfor %}
 
-	  </div>
-	  
+                            <!-- {{ form.options }} -->
+                            <br>
+                            <br>
+                            {% for message in form.field.errors %}
+                            <div color='red'>{{ message }}</div>
+                            {% endfor %}
+                            <div id='searchbox'> 
+                                <br>
+                                <div id='search-button'>
+                                    {{ form.field }} 
+                                    {{ form.submit }}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>  
+    	  </div>	  
 	</div>
+    
 
-
-<footer><p>2016</p></footer>
+    <div id='push'></div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+ <!-- Footer -->
+ 
+    <footer id='footer'>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="/search">Student Search</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="/student_map">Hometown Map</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="https://github.com/ruppjo01/CS330_final">Source Code</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy;2016 Josh Rupprecht and Taylor Gades. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
 </body>
 
 {% endblock %}
