@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<body>
+	<div class="container">
+	  <div class="jumbotron">
+	    <h1 id='title'>CS330 Directory</h1>
+            <form action = '/' method = POST>
+
+            {% for message in form.options.errors %}
+                <div>{{ message }} </div>
+            {% endfor %}
+
+
+                <fieldset class='fieldset'>
+                    {{ form.hidden_tag() }}
+                    
+                    <div>
+                        <h2>{{ form.options.label }}</h2>
+                        <div class='row'>
+                            {% for form in form.options %}
+                                <div class='col-sm-2'>{{form.label}} {{form}}</div>
+                            {% endfor %}
+
+                        <!-- {{ form.options }} -->
+                        <br>
+                        <br>
+                        {% for message in form.field.errors %}
+                        <div color='red'>{{ message }}</div>
+                        {% endfor %}
+                        <div id='searchbox'> 
+                            {{ form.field }} 
+                            {{ form.submit }}
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+                        
+
+	  </div>
+	  
+	</div>
+
+
+<footer><p>2016</p></footer>
+</body>
+
+{% endblock %}

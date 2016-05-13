@@ -72,15 +72,19 @@ class hometown2(db.Model):
   latitude = db.Column(db.Float)
   longitude = db.Column(db.Float)
 
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('index.html')
 
-@app.route('/', methods=['GET','POST'])
+
+@app.route('/search', methods=['GET','POST'])
 def directory():
     form = StudentSearch()
 
     if request.method == 'POST':
         if form.validate() == False:
             flash('At least one parameter must be given')
-            return render_template('index.html', form = form)
+            return render_template('search.html', form = form)
         else:
             options = form.options.data
             if form.options.data == 'Name':
@@ -132,7 +136,7 @@ def directory():
             return render_template('results.html', info = info, option = options)
 
     elif request.method == 'GET':
-        return render_template('index.html', form = form)
+        return render_template('search.html', form = form)
 
 @app.route('/student_map')
 def map():
@@ -154,9 +158,6 @@ def mapinit():
 
     return jsonify(json_obj=json_list)
 
-@app.route('/pictures')
-def pictures():
-    return render_template('pictures.html')
 
 if __name__ == '__main__':
     app.run()

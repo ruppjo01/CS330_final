@@ -28,3 +28,11 @@ table {
 #title {
 	text-align: center;
 }
+
+.jumbotron {
+	margin-top: 75px;
+}
+
+#searchbox {
+	text-align: center;
+}
