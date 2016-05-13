@@ -2,10 +2,47 @@
 
 {% block content %} 
 
-<body>
+<body class='world'>
 <div class='container' align="center">
-<div id="googleMap" style="width:85%;height:600px;"></div>
+<div class="panel panel-default mypanel">
+  <div class="panel-body"><h4>Hometown Map</h4></div>
 </div>
+</div>
+<div class='container theworld' align="center">
+  <div id="googleMap">
+  </div>
+</div>
+<!-- <div style="height=75px;">
+  
+</div> -->
 </body>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="list-inline">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li class="footer-menu-divider">&sdot;</li>
+                    <li>
+                        <a href="/search">Student Search</a>
+                    </li>
+                    <li class="footer-menu-divider">&sdot;</li>
+                    <li>
+                        <a href="/student_map">Hometown Map</a>
+                    </li>
+                    <li class="footer-menu-divider">&sdot;</li>
+                    <li>
+                        <a href="https://github.com/ruppjo01/CS330_final">Source Code</a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted small">Copyright &copy;2016 Josh Rupprecht and Taylor Gades. All Rights Reserved</p>
+            </div>
+        </div>
+    </div>
+</footer>
 
 {% endblock%}

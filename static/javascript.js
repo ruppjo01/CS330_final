@@ -19,7 +19,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 function placeMarker (lat, lon, name, map) {
   var infowindow = new google.maps.InfoWindow({
-    content: name
+    content: "<p class=marker>"+name+"</p>"
   });
   var position = new google.maps.LatLng(lat,lon); 
   var marker = new google.maps.Marker({
@@ -39,7 +39,7 @@ function populatemarkers(themap) {
     if (obj.readyState == 4 && obj.status==200){
       thejson = JSON.parse(obj.responseText)
       for (i in thejson.json_obj) {
-        // console.log(thejson.json_obj[i]); 
+        console.log(thejson.json_obj[i]); 
         var lat = thejson.json_obj[i]['lat'];
         var lon = thejson.json_obj[i]['lon'];
         var name = thejson.json_obj[i]['first'] + " " + thejson.json_obj[i]['last']

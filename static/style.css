@@ -28,11 +28,45 @@ table {
 #title {
 	text-align: center;
 }
-
+T
 .jumbotron {
-	margin-top: 75px;
+	margin-top: 150px;
 }
 
 #searchbox {
 	text-align: center;
+}
+
+.world {
+    padding: 100px 0;
+    color: #f8f8f8;
+    background: url(/static/img/greyworld.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.marker {
+  color: black; 
+  text-align: center; 
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height:65px;
+    padding: 50px 0;
+    background-color: #f8f8f8;
+}
+
+#googleMap {
+  padding: 25px;
+  background-color: black; 
+  width:85%;
+  height:500px;
+}
+
+.mypanel {
+  background-color: black; 
+  border-color: black; 
+  width: 35%;
 }
